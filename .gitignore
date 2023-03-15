@@ -1,0 +1,45 @@
+# Node
+node_modules/
+.node-version
+.env
+
+# IDE
+.idea/
+.env
+.env.*
+
+# Log files
+log/
+log.txt
+log_old.txt
+npm-debug.log
+npm-debug.log.*
+yarn-error.log*
+
+# App
+ics/*.ics
+incentive_certificates/
+*.fdf
+∂
+# Testing
+coverage/
+
+.env
+
+dist/*
+
+*.pem
+
+hidden/
+
+.npmrc
+
+docs/*
+
+credentials/websocket-signing/*.*
+
+*.tsbuildinfo
+
+.eslintcache
+
+.DS_Store
