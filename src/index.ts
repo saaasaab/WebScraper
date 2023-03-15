@@ -18,14 +18,25 @@ const { EVENT_URL } = parser.parse_args();
 		waitUntil: "networkidle0",
 	});
 
+
 	const speakerGroupSelector = '.sp-begin';
 	const speakerNameSelector = '.sp-name';
 	const speakerTitleSelector = '.sp-title';
-	const speakerCompantSelector = '.sp-company';
+	const speakerCompanySelector = '.sp-company';
 
-	const getArray = await page.$$eval(speakerGroupSelector,
+
+	const speakerGroupSelector2 = '.speakerInfoContainer';
+	const speakerNameSelector2 = '.speakerName';
+	const speakerTitleSelector2 = '.speakerRole';
+
+
+
+
+	const getArray1 = await page.$$eval(speakerGroupSelector,
 		(speakerGroup, nameSelector, titleSelector, companySelector) => {
-			let contents = speakerGroup.map(speaker => {
+			let contents;
+
+			contents = speakerGroup.map(speaker => {
 				const name = speaker.querySelector(nameSelector).innerHTML;
 				const title = speaker.querySelector(titleSelector).innerHTML;
 				const company = speaker.querySelector(companySelector).innerHTML;
@@ -34,11 +45,34 @@ const { EVENT_URL } = parser.parse_args();
 			return contents;
 
 		}
-		, speakerNameSelector, speakerTitleSelector, speakerCompantSelector);
+		, speakerNameSelector, speakerTitleSelector, speakerCompanySelector);
 
+	const getArray2 = await page.$$eval(speakerGroupSelector2,
+		(speakerGroup, nameSelector, titleSelector) => {
+			let contents;
+
+			contents = speakerGroup.map(speaker => {
+				const name = speaker.querySelector(nameSelector).innerHTML;
+				const title = speaker.querySelector(titleSelector).innerHTML;
+
+				return [name, title, ""];
+			});
+			return contents;
+
+		}
+		, speakerNameSelector2, speakerTitleSelector2);
+
+
+	console.log('getArray1', getArray1);
+	console.log('getArray1', getArray2);
+
+	const finalArray = getArray1.length ? getArray1 : getArray2;
 	const delimiter = "*&&*";
-	getArray.flat(Infinity).join(delimiter);
-	console.log(EVENT_URL + delimiter + getArray);
+
+
+	finalArray.map(arr => arr.join(delimiter)).join(delimiter);
+
+	console.log(EVENT_URL + delimiter + finalArray);
 
 	await browser.close();
 })();
