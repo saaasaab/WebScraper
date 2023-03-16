@@ -12,8 +12,6 @@ const { EVENT_URL, EVENT_URLS } = parser.parse_args();
 
 async function getOn24Info(url: string, page: Page) {
 
-
-	console.log('url', url);
 	await page.goto(url, {
 		waitUntil: "networkidle0",
 	});
