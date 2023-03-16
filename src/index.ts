@@ -63,16 +63,14 @@ const { EVENT_URL } = parser.parse_args();
 		, speakerNameSelector2, speakerTitleSelector2);
 
 
-	console.log('getArray1', getArray1);
-	console.log('getArray1', getArray2);
 
 	const finalArray = getArray1.length ? getArray1 : getArray2;
+
+	// console.log('finalArray', finalArray)
 	const delimiter = "*&&*";
+	const joinedString = finalArray.map(arr => arr.join(delimiter)).join(delimiter);
 
-
-	finalArray.map(arr => arr.join(delimiter)).join(delimiter);
-
-	console.log(EVENT_URL + delimiter + finalArray);
+	console.log(EVENT_URL + delimiter + joinedString);
 
 	await browser.close();
 })();
