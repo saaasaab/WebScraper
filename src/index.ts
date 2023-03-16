@@ -58,14 +58,12 @@ async function getOn24Info(url: string, page: Page) {
 		}
 		, speakerNameSelector2, speakerTitleSelector2);
 
-
-
 	const finalArray = getArray1.length ? getArray1 : getArray2;
 
 	const joinedString = finalArray.map(arr => arr.join(delimiter)).join(delimiter);
 
+	// THIS IS WHAT WE ARE COPYING TO GOOGLE SHEETS
 	console.log(url + delimiter + joinedString);
-
 }
 
 
