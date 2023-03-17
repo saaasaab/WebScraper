@@ -30,9 +30,9 @@ async function getOn24Info(url: string, page: Page) {
 			let contents;
 
 			contents = speakerGroup.map(speaker => {
-				const name = speaker.querySelector(nameSelector).innerHTML;
-				const title = speaker.querySelector(titleSelector).innerHTML;
-				const company = speaker.querySelector(companySelector).innerHTML;
+				const name = speaker.querySelector(nameSelector)?.innerHTML;
+				const title = speaker.querySelector(titleSelector)?.innerHTML;
+				const company = speaker.querySelector(companySelector)?.innerHTML;
 				return [name, title, company]
 			});
 			return contents;
@@ -45,8 +45,8 @@ async function getOn24Info(url: string, page: Page) {
 			let contents;
 
 			contents = speakerGroup.map(speaker => {
-				const name = speaker.querySelector(nameSelector).innerHTML;
-				const title = speaker.querySelector(titleSelector).innerHTML;
+				const name = speaker.querySelector(nameSelector)?.innerHTML;
+				const title = speaker.querySelector(titleSelector)?.innerHTML;
 
 				return [name, title, ""];
 			});
