@@ -16,13 +16,10 @@ async function getOn24Info(url: string, page: Page) {
 		waitUntil: "networkidle0",
 	});
 
-
-
 	const speakerGroupSelector = '.sp-begin';
 	const speakerNameSelector = '.sp-name';
 	const speakerTitleSelector = '.sp-title';
 	const speakerCompanySelector = '.sp-company';
-
 
 	const speakerGroupSelector2 = '.speakerInfoContainer';
 	const speakerNameSelector2 = '.speakerName';
@@ -65,7 +62,6 @@ async function getOn24Info(url: string, page: Page) {
 	// THIS IS WHAT WE ARE COPYING TO GOOGLE SHEETS
 	console.log(url + delimiter + joinedString);
 }
-
 
 (async () => {
 
