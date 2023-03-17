@@ -16,6 +16,10 @@ async function getOn24Info(url: string, page: Page) {
 		waitUntil: "networkidle0",
 	});
 
+
+	const eventTitleSelector1 = '.overview-section.section [name="title"]'
+	const eventTitleSelector2 = 'h1#eventTitle';
+
 	const speakerGroupSelector = '.sp-begin';
 	const speakerNameSelector = '.sp-name';
 	const speakerTitleSelector = '.sp-title';
@@ -24,6 +28,16 @@ async function getOn24Info(url: string, page: Page) {
 	const speakerGroupSelector2 = '.speakerInfoContainer';
 	const speakerNameSelector2 = '.speakerName';
 	const speakerTitleSelector2 = '.speakerRole';
+
+	const getEventName1 = await page.$$eval(eventTitleSelector1,
+		(title) => {
+			return title[0]?.innerHTML;
+		});
+
+	const getEventName2 = await page.$$eval(eventTitleSelector2,
+		(title) => {
+			return title[0]?.innerHTML;
+		});
 
 	const getArray1 = await page.$$eval(speakerGroupSelector,
 		(speakerGroup, nameSelector, titleSelector, companySelector) => {
@@ -38,7 +52,7 @@ async function getOn24Info(url: string, page: Page) {
 			return contents;
 
 		}
-		, speakerNameSelector, speakerTitleSelector, speakerCompanySelector);
+		, speakerNameSelector, speakerTitleSelector, speakerCompanySelector, eventTitleSelector1);
 
 	const getArray2 = await page.$$eval(speakerGroupSelector2,
 		(speakerGroup, nameSelector, titleSelector) => {
@@ -55,12 +69,15 @@ async function getOn24Info(url: string, page: Page) {
 		}
 		, speakerNameSelector2, speakerTitleSelector2);
 
+
+	const eventTitle = getEventName1 || getEventName2;
+
 	const finalArray = getArray1.length ? getArray1 : getArray2;
 
 	const joinedString = finalArray.map(arr => arr.join(delimiter)).join(delimiter);
 
 	// THIS IS WHAT WE ARE COPYING TO GOOGLE SHEETS
-	console.log(url + delimiter + joinedString);
+	console.log(url + delimiter + eventTitle + delimiter + joinedString);
 }
 
 (async () => {
