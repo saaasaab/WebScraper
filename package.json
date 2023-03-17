@@ -15,7 +15,7 @@
     "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "scrapper": "ts-node ./src/index.ts"
+    "scraper": "ts-node ./src/index.ts"
   },
   "dependencies": {
     "argparse": "^2.0.1",
