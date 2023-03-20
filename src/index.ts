@@ -10,6 +10,16 @@ parser.add_argument('-m', '--EVENT_URLS', { help: "A list of urls that are seper
 const delimiter = "*&&*";
 const { EVENT_URL, EVENT_URLS } = parser.parse_args();
 
+
+function getFilledArray(arrays: String[][][]) {
+	const filledArrays = arrays.filter(array => array.length > 0);
+	if (filledArrays.length === 1) {
+		return filledArrays[0];
+	} else {
+		throw new Error('More than one array is filled!');
+	}
+}
+
 async function getOn24Info(url: string, page: Page) {
 
 	await page.goto(url, {
@@ -28,6 +38,12 @@ async function getOn24Info(url: string, page: Page) {
 	const speakerGroupSelector2 = '.speakerInfoContainer';
 	const speakerNameSelector2 = '.speakerName';
 	const speakerTitleSelector2 = '.speakerRole';
+
+	const speakerGroupSelector3 = '.speakerNameAndRoleContainer';
+	const speakerNameSelector3 = '.speakerName';
+	const speakerTitleSelector3 = '.speakerRole';
+
+
 
 	const getEventName1 = await page.$$eval(eventTitleSelector1,
 		(title) => {
@@ -70,8 +86,28 @@ async function getOn24Info(url: string, page: Page) {
 		, speakerNameSelector2, speakerTitleSelector2);
 
 
+	const getArray3 = await page.$$eval(speakerGroupSelector3,
+		(speakerGroup, nameSelector, titleSelector) => {
+			let contents;
+
+			contents = speakerGroup.map(speaker => {
+				const name = speaker.querySelector(nameSelector)?.innerHTML;
+				const title = speaker.querySelector(titleSelector)?.innerHTML;
+
+				return [name, title, ""];
+			});
+			return contents;
+
+		}
+		, speakerNameSelector3, speakerTitleSelector3);
+
+
+
+
 	const eventTitle = getEventName1 || getEventName2;
 
+
+	getFilledArray([getArray1, getArray2, getArray3])
 	const finalArray = getArray1.length ? getArray1 : getArray2;
 
 	const joinedString = finalArray.map(arr => arr.join(delimiter)).join(delimiter);
