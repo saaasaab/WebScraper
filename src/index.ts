@@ -107,8 +107,8 @@ async function getOn24Info(url: string, page: Page) {
 	const eventTitle = getEventName1 || getEventName2;
 
 
-	getFilledArray([getArray1, getArray2, getArray3])
-	const finalArray = getArray1.length ? getArray1 : getArray2;
+
+	const finalArray = getFilledArray([getArray1, getArray2, getArray3]);
 
 	const joinedString = finalArray.map(arr => arr.join(delimiter)).join(delimiter);
 
