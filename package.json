@@ -13,8 +13,10 @@
   },
   "scripts": {
     "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "devRegGetter": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/getRegInfo.ts",
     "build": "tsc",
-    "start": "node dist/index.js",
+    "start": "tsc && node dist/index.js",
+    "startRegGetter": "tsc && node dist/getRegInfo.js",
     "scraper": "ts-node ./src/index.ts"
   },
   "dependencies": {

@@ -13,10 +13,11 @@ const { EVENT_URL, EVENT_URLS } = parser.parse_args();
 
 function getFilledArray(arrays: String[][][]) {
 	const filledArrays = arrays.filter(array => array.length > 0);
-	if (filledArrays.length === 1) {
+	if (filledArrays.length >= 1) {
 		return filledArrays[0];
 	} else {
-		throw new Error('More than one array is filled!');
+		return
+		// throw new Error('More than one array is filled!');
 	}
 }
 
@@ -108,7 +109,7 @@ async function getOn24Info(url: string, page: Page) {
 
 
 
-	const finalArray = getFilledArray([getArray1, getArray2, getArray3]);
+	const finalArray = getFilledArray([getArray1, getArray2, getArray3]) || [];
 
 	const joinedString = finalArray.map(arr => arr.join(delimiter)).join(delimiter);
 
